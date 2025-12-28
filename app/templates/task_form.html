@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}{{ '编辑任务' if action == 'edit' else '新建任务' }} - 校园待办清单{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi {{ 'bi-pencil' if action == 'edit' else 'bi-plus-circle' }}"></i>
+                    {{ '编辑任务' if action == 'edit' else '新建任务' }}
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('task.edit_task', task_id=task.id) if action == 'edit' else url_for('task.create_task') }}">
+                    <!-- 任务标题 -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">
+                            任务标题 <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               value="{{ task.title if task else title|default('') }}" 
+                               required maxlength="50" placeholder="请输入任务标题（最多50个字符）">
+                        <div class="form-text">
+                            <span id="titleCount">0</span>/50 个字符
+                        </div>
+                    </div>
+                    
+                    <!-- 任务描述 -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">任务描述</label>
+                        <textarea class="form-control" id="description" name="description" 
+                                  rows="3" maxlength="500" 
+                                  placeholder="请输入任务描述（可选，最多500个字符）">{{ task.description if task else description|default('') }}</textarea>
+                        <div class="form-text">
+                            <span id="descCount">0</span>/500 个字符
+                        </div>
+                    </div>
+                    
+                    <!-- 截止日期 -->
+                    <div class="mb-3">
+                        <label for="deadline" class="form-label">截止日期</label>
+                        <input type="datetime-local" class="form-control" id="deadline" name="deadline" 
+                               value="{{ task.deadline.strftime('%Y-%m-%dT%H:%M') if task and task.deadline else deadline|default('') }}">
+                    </div>
+                    
+                    <!-- 优先级 -->
+                    <div class="mb-3">
+                        <label class="form-label">优先级</label>
+                        <div class="row g-2">
+                            {% for value, label in priority_choices %}
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="priority" id="priority_{{ value }}" 
+                                       value="{{ value }}" 
+                                       {{ 'checked' if (task and task.priority == value) or (not task and value == 'important_not_urgent') or priority == value }}>
+                                <label class="btn btn-outline-secondary w-100 priority-btn priority-{{ value }}" for="priority_{{ value }}">
+                                    {{ label }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- 分类 -->
+                    <div class="mb-4">
+                        <label for="category_id" class="form-label">任务分类</label>
+                        <select class="form-select" id="category_id" name="category_id">
+                            <option value="">-- 未分类 --</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}" 
+                                    {{ 'selected' if (task and task.category_id == category.id) or category_id == category.id }}>
+                                {{ '📌 ' if category.is_preset }}{{ category.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <!-- 操作按钮 -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('task.task_list') }}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> 取消
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> {{ '保存修改' if action == 'edit' else '创建任务' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 字符计数
+document.getElementById('title').addEventListener('input', function() {
+    document.getElementById('titleCount').textContent = this.value.length;
+});
+
+document.getElementById('description').addEventListener('input', function() {
+    document.getElementById('descCount').textContent = this.value.length;
+});
+
+// 初始化计数
+document.getElementById('titleCount').textContent = document.getElementById('title').value.length;
+document.getElementById('descCount').textContent = document.getElementById('description').value.length;
+</script>
+{% endblock %}

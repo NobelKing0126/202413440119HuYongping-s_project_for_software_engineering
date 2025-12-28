@@ -1,0 +1,504 @@
+/* 
+ * 校园待办清单系统 - 自定义样式
+ * 作者：软件工程课程项目
+ * 日期：2025年1月
+ */
+
+/* ==================== 全局样式 ==================== */
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --secondary-color: #6c757d;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f7fa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+/* ==================== 导航栏样式 ==================== */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+/* ==================== 卡片样式 ==================== */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    font-weight: 500;
+    padding: 12px 16px;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+/* ==================== 任务项样式 ==================== */
+.task-item {
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    padding: 16px;
+}
+
+.task-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(2px);
+}
+
+.task-item.completed {
+    background-color: #f0fff4;
+    border-left-color: var(--success-color);
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.task-item.overdue {
+    background-color: #fff5f5;
+    border-left-color: var(--danger-color);
+}
+
+.task-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+/* 完成按钮样式 */
+.complete-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.complete-btn:hover {
+    transform: scale(1.1);
+}
+
+.complete-btn i {
+    font-size: 1.1rem;
+}
+
+/* ==================== 优先级标签样式 ==================== */
+.badge {
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+/* 紧急重要 - 红色 */
+.priority-urgent_important,
+.badge.priority-urgent_important {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+/* 重要不紧急 - 橙色 */
+.priority-important_not_urgent,
+.badge.priority-important_not_urgent {
+    background-color: #fd7e14 !important;
+    color: white !important;
+}
+
+/* 紧急不重要 - 黄色 */
+.priority-urgent_not_important,
+.badge.priority-urgent_not_important {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+/* 不紧急不重要 - 灰色 */
+.priority-not_urgent_not_important,
+.badge.priority-not_urgent_not_important {
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+/* 优先级按钮选中状态 */
+.priority-btn {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.btn-check:checked + .priority-btn.priority-urgent_important {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-check:checked + .priority-btn.priority-important_not_urgent {
+    background-color: #fd7e14;
+    border-color: #fd7e14;
+    color: white;
+}
+
+.btn-check:checked + .priority-btn.priority-urgent_not_important {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.btn-check:checked + .priority-btn.priority-not_urgent_not_important {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+/* ==================== 侧边栏样式 ==================== */
+.list-group-item {
+    border: none;
+    border-radius: 0;
+    padding: 12px 16px;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+    background-color: #e9ecef;
+}
+
+.list-group-item.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.list-group-item i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+}
+
+/* ==================== 统计卡片样式 ==================== */
+.card-body .h4 {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.card-body small {
+    font-size: 0.75rem;
+}
+
+/* ==================== 表单样式 ==================== */
+.form-control,
+.form-select {
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid #dee2e6;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.form-text {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-radius: 8px 0 0 8px;
+}
+
+/* ==================== 按钮样式 ==================== */
+.btn {
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 1rem;
+}
+
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+/* ==================== 模态框样式 ==================== */
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-radius: 12px 12px 0 0;
+    padding: 16px 20px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* ==================== 警告框样式 ==================== */
+.alert {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* ==================== 页脚样式 ==================== */
+footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}
+
+footer small {
+    color: #6c757d;
+}
+
+/* ==================== 空状态样式 ==================== */
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 16px;
+}
+
+.empty-state p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+/* ==================== 登录/注册页面样式 ==================== */
+.auth-card {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.auth-card .card-header {
+    padding: 20px;
+}
+
+.auth-card .card-header h4 {
+    margin: 0;
+}
+
+.auth-card .card-body {
+    padding: 30px;
+}
+
+.auth-card .card-footer {
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 0 0 12px 12px;
+}
+
+/* ==================== 搜索框样式 ==================== */
+.search-box .input-group {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.search-box .form-control {
+    border-right: none;
+}
+
+.search-box .btn {
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+}
+
+/* ==================== 工具提示样式 ==================== */
+.tooltip {
+    font-size: 0.8rem;
+}
+
+/* ==================== 响应式样式 ==================== */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 12px;
+    }
+    
+    .task-item {
+        padding: 12px;
+    }
+    
+    .task-title {
+        font-size: 0.9rem;
+    }
+    
+    .btn-group .btn {
+        padding: 4px 8px;
+    }
+    
+    .badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    
+    /* 移动端侧边栏隐藏 */
+    .col-md-3 {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .card-header {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+    
+    .priority-btn {
+        font-size: 0.75rem;
+        padding: 8px;
+    }
+}
+
+/* ==================== 动画效果 ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-item {
+    animation: fadeIn 0.3s ease;
+}
+
+/* 加载动画 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ==================== 打印样式 ==================== */
+@media print {
+    .navbar,
+    .btn,
+    .modal,
+    footer {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+    
+    .task-item {
+        border-left-width: 2px;
+    }
+}
